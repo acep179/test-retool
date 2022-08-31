@@ -1,12 +1,18 @@
+import React from "react";
+import { Home } from "./pages";
+
 
 function App() {
   return (
-    <div>
+    <div className="w-100">
       <header>
         <p>
-          This is React
+          Test Retool
         </p>
       </header>
+      <main>
+        <Home/>
+      </main>
     </div>
   );
 }
