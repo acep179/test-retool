@@ -4,7 +4,7 @@ import { Home } from "./pages";
 
 function App() {
   return (
-    <div className="w-100">
+    <div>
       <header>
         <p>
           Test Retool

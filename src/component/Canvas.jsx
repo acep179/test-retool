@@ -1,27 +1,7 @@
-import React, { useRef } from 'react'
+import React from 'react'
 
-function Canvas() {
+function Canvas({ dragOver, dragStart, drop }) {
   const divID = []
-
-  const dragItem = useRef();
-
-  const dragStart = (e) => {
-    dragItem.current = e.target.id
-    const canvas = document.getElementsByClassName('canvas')
-    canvas.setAttribute("class", "canvas col-1 border border-dark p-0 position-relative")
-  };
-
-  const dragOver = (e) => {
-    e.preventDefault()
-  }
-
-  const drop = (e) => {
-    e.preventDefault()
-    e.target.appendChild(document.getElementById(dragItem.current))
-
-    const canvas = document.getElementsByClassName('canvas')
-    canvas.setAttribute("class", "canvas col-1 bg-primary p-0 position-relative")
-  };
 
   for (let i = 0; i < 240; i++) {
     divID.push(`div${i}`);
@@ -33,7 +13,7 @@ function Canvas() {
 
       <div
         id='divUtama'
-        className='canvas col-1 bg-primary p-0 position-relative'
+        className='canvas col-1 bg-info p-0 position-relative'
         style={{
           height: 10,
         }}
@@ -41,7 +21,7 @@ function Canvas() {
         onDrop={drop}
       >
         <form
-          id='form1'
+          id='select1'
           className='d-flex justify-content-between position-absolute fw-bold p-1'
           onDragStart={(e) => dragStart(e)}
           draggable
@@ -61,7 +41,7 @@ function Canvas() {
           <div
             key={item}
             id='div2'
-            className='canvas col-1 bg-primary p-0 position-relative'
+            className='canvas col-1 bg-info p-0 position-relative'
             style={{ height: '10px' }}
             onDragOver={(e) => dragOver(e)}
             onDrop={drop}

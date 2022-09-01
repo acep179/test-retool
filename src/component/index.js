@@ -1,3 +1,4 @@
 import Canvas from "./Canvas";
+import SideBar from "./SideBar"
 
-export {Canvas}
+export {Canvas, SideBar}
