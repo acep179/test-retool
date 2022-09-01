@@ -13,27 +13,31 @@ function Home() {
     dragItem.current = e.target
   };
 
-  const handleOnClick = async (id) => {
+  const handleOnClick = (id) => {
     setElementID(id)
+    setIsCreate(false)
+  }
+
+  const handleClickCreate = () => {
+    setIsCreate(true)
+  }
+  const handleClickInspect = () => {
     setIsCreate(false)
   }
 
   const dragStartSide = () => {
 
     let selectOption = document.createElement('form')
-    selectOption.id = `select${formID}`
+    selectOption.id = `formSelect${formID}`
     selectOption.onclick = () => handleOnClick(selectOption.id)
     selectOption.draggable = true
     selectOption.ondragstart = (e) => dragStart(e)
-    selectOption.classList = "d-flex justify-content-between position-absolute fw-bold p-1"
-    selectOption.style.width = '400%'
-    selectOption.style.zIndex = 99
-    selectOption.style.backgroundColor = '#F5F5F5'
-    selectOption.style.cursor = 'move'
+    selectOption.classList = "flex justify-between absolute z-50 bg-neutral-100 p-1 w-[400%] cursor-move"
 
-    let htmlString = '<label htmlFor="select" style="cursor: move">Label</label> <select style="width: 60%" name="" id="select"> <option value="">Option 1</option> <option value="">Option 2</option> <option value="">Option 3</option></select>'
+    let htmlString = `<label class="cursor-pointer font-bold" htmlFor="select${formID}">Label</label> <select class="w-3/5" name="" id="select${formID}"> <option value="">Option 1</option> <option value="">Option 2</option> <option value="">Option 3</option></select>`
 
     selectOption.innerHTML = htmlString.trim();
+    console.log(selectOption)
 
     dragItem.current = selectOption
   };
@@ -52,9 +56,9 @@ function Home() {
   };
 
   return (
-    <div className='row gap-2 ps-4 pe-1'>
+    <div className='grid grid-cols-12 gap-2 pl-4 pr-3'>
       <Canvas dragStart={dragStart} dragOver={dragOver} drop={drop} />
-      <SideBar dragStart={dragStartSide} dragEnd={dragEndSide} elementID={elementID} isCreate={isCreate} />
+      <SideBar dragStart={dragStartSide} dragEnd={dragEndSide} elementID={elementID} isCreate={isCreate} clickCreate={handleClickCreate} clickInspect={handleClickInspect} />
     </div>
   )
 
