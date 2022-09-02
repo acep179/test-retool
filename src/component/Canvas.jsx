@@ -1,46 +1,44 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-function Canvas({ dragOver, dragStart, drop }) {
-  const divID = []
+function Canvas({ dragOver, dragStart, dragLeave, drop, onClickForm, divID }) {
 
-  for (let i = 0; i < 251; i++) {
-    divID.push(`div${i}`);
-  }
+  useEffect(() => {
+    if (divID) {
+      console.log('data telah di-update')
+    }
+  }, [divID])
 
   return (
 
     <div className='grid grid-cols-12 col-span-9'>
 
-      <div
-        id='divUtama'
-        className='col-span-1 bg-slate-400 p-0 relative h-2.5'
-        onDragOver={(e) => dragOver(e)}
-        onDrop={drop}
-      >
-        <form
-          id='select1'
-          className='flex justify-between absolute z-50 bg-neutral-100 p-1 w-[400%] cursor-move'
-          onDragStart={(e) => dragStart(e)}
-          draggable
-        >
-          <label className='cursor-move font-bold' htmlFor="select">Label</label>
-          <select className='w-3/5' name="" id="select">
-            <option value="">Option 1</option>
-            <option value="">Option 2</option>
-            <option value="">Option 3</option>
-          </select>
-        </form>
-      </div>
-
-      {divID?.map((item) => {
+      {divID?.map((item, index) => {
         return (
           <div
-            key={item}
-            id='div2'
+            key={index}
+            id={item.id}
             className='canvas col-span-1 bg-slate-400 p-0 relative h-2.5'
             onDragOver={(e) => dragOver(e)}
-            onDrop={drop}
+            onDrop={(e) => drop(e, index)}
           >
+            {item.selectsData ? (
+              <form
+                key={index}
+                id={item.selectsData.id}
+                className='flex justify-between absolute z-50 bg-neutral-100 p-1 w-[400%] cursor-move'
+                onDragStart={(e) => dragStart(e)}
+                draggable
+                onClick={onClickForm}
+              >
+                <label className='cursor-move font-bold' htmlFor="select">Label</label>
+                <select className='w-3/5' name="" id="select">
+                  {item?.selectsData.option?.map((item, index) => {
+                    return (<option key={index} value="">{item}</option>)
+                  })}
+                </select>
+              </form>
+            ) : (<div></div>)
+            }
           </div>
         )
       })}

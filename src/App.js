@@ -6,9 +6,9 @@ function App() {
   return (
     <div>
       <header>
-        <p>
+        <h1 className='bg-lime-200 p-4 text-center text-xl font-bold m-4'>
           Test Retool
-        </p>
+        </h1>
       </header>
       <main>
         <Home/>
